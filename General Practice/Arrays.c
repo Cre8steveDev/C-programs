@@ -21,21 +21,27 @@ int main()
     //     printf("%d\n", oddNums[x]);
     //     x++;
     // }
+    // The Array below translates to, an array holding 12 arrays that have a max length of chars of 25. This is because it's a string/char array
 
-    char months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    char months[12][25] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-    printf("These are the Months of the year:\n");
+    // printf("These are the Months of the year:\n");
 
-    for (int i = 0; i < 12; i++)
-    {
-        printf("%d: %s and it has %d days\n", i + 1, months[i]);
-    }
-
+    // for (int i = 0; i < 12; i++)
+    // {
+    //     printf("%d: %s\n", (i + 1), months[i]);
+    // }
     // You can initialize an array with a loop. It's always advisable to initiatilze an array when it's declared.
 
     // Multidimensional Arrays - 2 Dimensional Arrays (Has most use case)
 
     // String arrays
+
+    // Knowing the size of an array (i.e the number of elements in it)
+    int evenNums[] = {2, 4, 6, 8, 10, 12, 14, 16};
+
+    printf("The size of the evenNums is: %i",
+           (sizeof(evenNums) / sizeof(int)));
 
     return 0;
 }
