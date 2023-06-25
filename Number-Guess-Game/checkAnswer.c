@@ -1,4 +1,4 @@
-#include "main.h";
+#include "main.h"
 
 int checkAnswer(int lists[], int g) {
   int i;
