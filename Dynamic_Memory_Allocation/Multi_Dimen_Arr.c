@@ -10,6 +10,7 @@
 // Function to allocate given grid
 int **alloc_grid(int rows, int cols);
 
+// THE MAIN FUNCTION
 int main(void)
 {
     int rows, cols;
@@ -23,13 +24,15 @@ int main(void)
     int **arr = alloc_grid(rows, cols);
     int i, j;
 
+    int num = 1;
     // Initializing the grid
     for (i = 0; i < rows; i++)
     {
         for (j = 0; j < cols; j++)
         {
-            arr[i][j] = 8;
+            arr[i][j] = num++;
         }
+        num = 1;
     }
 
     // Printing the grid
@@ -38,7 +41,7 @@ int main(void)
     {
         for (j = 0; j < cols; j++)
         {
-            printf("%d ", arr[i][j]);
+            printf("%3d\t", arr[i][j]);
         }
         printf("\n");
     }
@@ -55,6 +58,7 @@ int main(void)
     return 0;
 }
 
+// Memory Allocating Function
 int **alloc_grid(int rows, int cols)
 {
     int i, j;
