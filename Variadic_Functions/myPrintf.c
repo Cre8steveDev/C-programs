@@ -2,18 +2,22 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int myPrintF(char *fmt, ...);
 int myputs(char *s);
 int myprntint(int num);
+int myputchar(char c);
 
 int main(void)
 {
-    int year = 1994;
+    int year = 1995554;
     char *name = "Stephen";
 
-    int len = myPrintF("Hello World!!! The %dth time\n", 5032);
-    int len2 = myPrintF("My name is: %s. Born in the year %d\n", name, year);
+    int len = myPrintF("Hello World!!! The %dth %c time\n", 503787872, 'D');
+    int len2 = myPrintF("My name is: %7s. Born in the year %d\n", name, year);
+
+    myPrintF("Print 5 spaces:%5d\n", 500);
 
     printf("My Function returns: %d\n", len);
     printf("My Second Function returns: %d\n", len2);
@@ -27,7 +31,7 @@ int main(void)
  * Return: the number of characters it prints
  */
 
-int myPrintF(char *fmt, ...)
+int myPrintF(char *fmtstr, ...)
 {
     int count = 0;
     char *string;
@@ -37,14 +41,15 @@ int myPrintF(char *fmt, ...)
     float print_float;
 
     va_list args;
-    va_start(args, fmt);
+    va_start(args, fmtstr);
 
-    for (string = fmt; *string != '\0'; string++)
+    for (string = fmtstr; *string != '\0'; string++)
     {
 
         if (*string == '%')
         {
             string++;
+        loop:
             if (*string == 's')
             {
                 print_str = va_arg(args, char *);
@@ -57,13 +62,27 @@ int myPrintF(char *fmt, ...)
             }
             else if (*string == 'c')
             {
-                print_char = va_arg(args, char);
-                putchar(*string);
+                print_char = va_arg(args, int);
+                myputchar(print_char);
                 count++;
+            }
+            // Implementing Character width
+            else if (atoi(string))
+            {
+                // Create a function that can return how many
+                // characters a number has
+                int x = atoi(string);
+                while (x > 0)
+                {
+                    myputchar(' ');
+                    x--;
+                }
+                string++;
+                goto loop;
             }
             string++;
         }
-        putchar(*string);
+        myputchar(*string);
         count++;
     }
 
@@ -78,7 +97,7 @@ int myputs(char *s)
 
     while (*s != '\0')
     {
-        putchar(*s);
+        write(1, s, 1);
         num++;
         s++;
     }
@@ -96,13 +115,13 @@ int myprntint(int num)
 
     if (num < 0)
     {
-        putchar('-');
+        myputchar('-');
         count++;
-        num *= -1;
+        num = -num;
     }
     if (num == 0)
     {
-        putchar('0');
+        myputchar('0');
         count++;
     }
 
@@ -113,12 +132,19 @@ int myprntint(int num)
         index++;
     }
 
-    while (index > 0)
+    while (index >= 0)
     {
-        putchar(buffer[index] + '0');
+        myputchar(buffer[index]);
         index--;
         count++;
     }
 
     return (count);
+}
+
+// Implementing Self-Defined Putchar
+
+int myputchar(char c)
+{
+    return (write(1, &c, 1));
 }
