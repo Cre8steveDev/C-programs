@@ -8,6 +8,7 @@ int myPrintF(char *fmt, ...);
 int myputs(char *s);
 int myprntint(int num);
 int myputchar(char c);
+int myprnthex(int num);
 
 int main(void)
 {
@@ -148,3 +149,5 @@ int myputchar(char c)
 {
     return (write(1, &c, 1));
 }
+
+int myprnthex(int num);
